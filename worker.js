@@ -19,7 +19,9 @@
  */
 
 const CACHE_TTL_SECONDS = 3600; // 1 hour — tune as you like
-const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-flash-latest"; // Google-maintained alias — always
+// points to their current stable Flash model, so this won't break again when
+// Google rotates model versions (as happened with gemini-2.5-flash retiring).
 const GEMINI_URL = (model, key) =>
   `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
 
