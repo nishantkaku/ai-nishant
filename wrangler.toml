@@ -1,0 +1,11 @@
+name = "ai-nishant"
+main = "worker.js"
+compatibility_date = "2026-07-28"
+
+kv_namespaces = [
+  { binding = "KNOWLEDGE_CACHE", id = "83cd6d59e90f4cc49b36c3b7d3d97266" }
+]
+
+[vars]
+KNOWLEDGE_URL = "https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/nishant_knowledge.md"
+ALLOWED_ORIGIN = "https://nishantkaku.com"
