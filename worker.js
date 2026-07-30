@@ -132,8 +132,8 @@ export default {
       system_instruction: { parts: [{ text: systemInstruction }] },
       contents,
       generationConfig: {
-        temperature: 0.4,
-        maxOutputTokens: 400,
+        temperature: 0.65,
+        maxOutputTokens: 700,
       },
     };
 
