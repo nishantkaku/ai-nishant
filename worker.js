@@ -262,23 +262,49 @@ export default {
     const systemInstruction =
       SYSTEM_PROMPT_HEADER + knowledge + SYSTEM_PROMPT_FOOTER;
 
+    // Allow ?provider=gemini to force Gemini directly (useful for testing),
+    // but by default Groq is primary with Gemini as automatic fallback.
     const url = new URL(request.url);
-    const provider = url.searchParams.get("provider") === "groq" ? "groq" : "gemini";
+    const forceProvider = url.searchParams.get("provider");
 
     let result;
-    try {
-      result =
-        provider === "groq"
-          ? await callGroq(systemInstruction, safeHistory, safeMessage, env)
-          : await callGemini(systemInstruction, safeHistory, safeMessage, env);
-    } catch (err) {
-      return new Response(
-        JSON.stringify({ error: `${provider} request failed`, detail: String(err) }),
-        { status: 502, headers: { ...headers, "Content-Type": "application/json" } }
-      );
+    let providerUsed;
+
+    if (forceProvider === "gemini") {
+      try {
+        result = await callGemini(systemInstruction, safeHistory, safeMessage, env);
+        providerUsed = "gemini";
+      } catch (err) {
+        return new Response(
+          JSON.stringify({ error: "gemini request failed", detail: String(err) }),
+          { status: 502, headers: { ...headers, "Content-Type": "application/json" } }
+        );
+      }
+    } else {
+      // Primary: Groq. On any failure — rate limit or otherwise — fall
+      // back to Gemini rather than surfacing an error to the visitor.
+      try {
+        result = await callGroq(systemInstruction, safeHistory, safeMessage, env);
+        providerUsed = "groq";
+      } catch (groqErr) {
+        try {
+          result = await callGemini(systemInstruction, safeHistory, safeMessage, env);
+          providerUsed = "gemini-fallback";
+        } catch (geminiErr) {
+          // Both providers failed — this is the only case that surfaces
+          // an actual error to the widget.
+          return new Response(
+            JSON.stringify({
+              error: "Both providers failed",
+              detail: `groq: ${String(groqErr)} | gemini: ${String(geminiErr)}`,
+            }),
+            { status: 502, headers: { ...headers, "Content-Type": "application/json" } }
+          );
+        }
+      }
     }
 
-    return new Response(JSON.stringify(result), {
+    return new Response(JSON.stringify({ ...result, provider: providerUsed }), {
       headers: { ...headers, "Content-Type": "application/json" },
     });
   },
