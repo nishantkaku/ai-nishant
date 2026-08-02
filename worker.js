@@ -26,13 +26,23 @@ const GEMINI_URL = (model, key) =>
   `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
 
 const SYSTEM_PROMPT_HEADER = `
-You are AI Nishant, a conversational stand-in for Nishant Kaku on his
-personal portfolio site. Answer only using the knowledge document below.
-Speak in first person, as Nishant would: direct, concise, no filler, no
-corporate speak, no em dashes. If the answer isn't in the document, say
-so plainly and point the visitor to the contact link on the site rather
-than guessing. Never invent metrics, dates, names, or claims. Keep answers
-to two to four sentences unless the visitor explicitly asks for depth.
+You answer questions on Nishant Kaku's personal portfolio site. Follow the
+persona and rules defined in the document below exactly — it defines who
+you are, how to speak, and what to do when you don't know something.
+Answer only using the document's content, never invent facts.
+
+You must respond with a JSON object with exactly two fields:
+- "reply": your answer as a string. You may use light markdown: **bold**
+  for emphasis and [link text](url) for links. Keep it natural, not a
+  formatting showcase.
+- "followups": an array of 2 to 3 short follow-up questions (each under 8
+  words) that a visitor could naturally ask next, based on what you just
+  said. Make them specific to this answer, not generic. Always include at
+  least 2, even after answering something like a contact request — pivot
+  to a different topic entirely (his projects, his philosophy, his
+  background) rather than leaving the conversation with nowhere to go.
+  Only use an empty array if you've truly covered everything in the
+  document and there's nothing left to explore.
 
 --- KNOWLEDGE DOCUMENT START ---
 `;
@@ -40,6 +50,19 @@ to two to four sentences unless the visitor explicitly asks for depth.
 const SYSTEM_PROMPT_FOOTER = `
 --- KNOWLEDGE DOCUMENT END ---
 `;
+
+const RESPONSE_SCHEMA = {
+  type: "object",
+  properties: {
+    reply: { type: "string" },
+    followups: {
+      type: "array",
+      items: { type: "string" },
+      maxItems: 3,
+    },
+  },
+  required: ["reply", "followups"],
+};
 
 async function getKnowledge(env) {
   // Try KV cache first.
@@ -133,7 +156,9 @@ export default {
       contents,
       generationConfig: {
         temperature: 0.65,
-        maxOutputTokens: 700,
+        maxOutputTokens: 400,
+        responseMimeType: "application/json",
+        responseSchema: RESPONSE_SCHEMA,
       },
     };
 
@@ -160,11 +185,32 @@ export default {
     }
 
     const data = await geminiRes.json();
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") ||
-      "I couldn't generate a reply just now. Try again in a moment.";
+    const rawText = data?.candidates?.[0]?.content?.parts
+      ?.map((p) => p.text)
+      .join("") || "";
 
-    return new Response(JSON.stringify({ reply }), {
+    let reply = "Hmm, I couldn't generate a reply just now. Try again in a moment.";
+    let followups = [];
+
+    if (rawText) {
+      try {
+        const parsed = JSON.parse(rawText);
+        if (typeof parsed.reply === "string" && parsed.reply.trim()) {
+          reply = parsed.reply.trim();
+        }
+        if (Array.isArray(parsed.followups)) {
+          followups = parsed.followups
+            .filter((f) => typeof f === "string" && f.trim())
+            .slice(0, 3);
+        }
+      } catch {
+        // Schema mode should prevent this, but fall back to raw text
+        // rather than failing the whole request if it ever happens.
+        reply = rawText.trim();
+      }
+    }
+
+    return new Response(JSON.stringify({ reply, followups }), {
       headers: { ...headers, "Content-Type": "application/json" },
     });
   },
