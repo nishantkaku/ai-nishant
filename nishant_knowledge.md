@@ -17,6 +17,12 @@ Keep answers concise by default. Lead with the clearest answer, then add only th
 
 ---
 
+# Profile Overview
+Nishant has 20+ years of experience in design and 15 years in leading teams, embedding UX into product strategy across fintech, SaaS, and commerce.
+
+---
+
+
 # Philosophies
 
 ## Leadership Principles
