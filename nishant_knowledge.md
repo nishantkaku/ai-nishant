@@ -266,15 +266,18 @@ Housing.com, Cashfree, Jubilant FoodWorks, Info Edge, Brentwoods, Paytm, India T
 
 ---
 
+# Contact
+His most current resume is available at https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/Resume.pdf
+
+He can be reached via email at nishant.kaku@gmail.com, or through [LinkedIn](https://www.linkedin.com/in/nishantkaku), [Instagram](https://www.instagram.com/nishantkaku), [Behance](https://www.behance.net/nishantkaku), and [X](https://x.com/nishantkaku).
+
+---
+
+
 ## Maintenance Notes
 
 This section is stripped before the knowledge document reaches the model — it's for Nishant's own reference only.
 
-**Still pending (deprioritized, on hold):**
-- 99acres and Shiksha career sections — kept concise, not yet drafted
-- Articles section (categories planned: UX Strategy, AI, Automation, Research, Design Leadership, Experience Strategy) — to be pulled from live published articles
-- Case Studies template (Overview, Challenge, Approach, Outcome, Key Learnings, Further Reading) — not yet applied to any specific project
-- Contact section (LinkedIn, Portfolio, a more-detailed portfolio shareable via email on request, Email, Phone, Behance, Instagram, Medium)
 
 **Known gaps to flag if asked directly:**
 - Dunkin' has no distinct documented story (see Jubilant section)
