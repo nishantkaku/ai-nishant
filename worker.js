@@ -87,7 +87,6 @@ const RESPONSE_SCHEMA = {
 };
 
 async function getKnowledge(env) {
-  // Try KV cache first.
   const cached = await env.KNOWLEDGE_CACHE.get("nishant_knowledge");
   if (cached) return cached;
 
@@ -99,8 +98,6 @@ async function getKnowledge(env) {
   }
   const text = await res.text();
 
-  // Strip the "Maintenance Notes" section before sending to the model —
-  // that part of the file is for Nishant, not for the bot to see or quote.
   const trimmed = text.split("## Maintenance Notes")[0].trim();
 
   await env.KNOWLEDGE_CACHE.put("nishant_knowledge", trimmed, {
@@ -133,16 +130,12 @@ function parseReplyJson(rawText) {
           .slice(0, 3);
       }
     } catch {
-      // Schema mode should prevent this, but fall back to raw text
-      // rather than failing the whole request if it ever happens.
       reply = rawText.trim();
     }
   }
 
   return { reply, followups };
 }
-
-// ---- Gemini ----
 
 async function callGemini(systemInstruction, safeHistory, safeMessage, env) {
   const contents = [
@@ -181,8 +174,6 @@ async function callGemini(systemInstruction, safeHistory, safeMessage, env) {
 
   return parseReplyJson(rawText);
 }
-
-// ---- Groq ----
 
 async function callGroq(systemInstruction, safeHistory, safeMessage, env) {
   const messages = [
@@ -250,7 +241,6 @@ export default {
       );
     }
 
-    // Basic guardrails: cap message length and history size to control cost.
     const safeMessage = message.slice(0, 2000);
     const safeHistory = Array.isArray(history) ? history.slice(-10) : [];
 
@@ -267,8 +257,6 @@ export default {
     const systemInstruction =
       SYSTEM_PROMPT_HEADER + knowledge + SYSTEM_PROMPT_FOOTER;
 
-    // Allow ?provider=gemini to force Gemini directly (useful for testing),
-    // but by default Groq is primary with Gemini as automatic fallback.
     const url = new URL(request.url);
     const forceProvider = url.searchParams.get("provider");
 
@@ -286,8 +274,6 @@ export default {
         );
       }
     } else {
-      // Primary: Groq. On any failure — rate limit or otherwise — fall
-      // back to Gemini rather than surfacing an error to the visitor.
       try {
         result = await callGroq(systemInstruction, safeHistory, safeMessage, env);
         providerUsed = "groq";
@@ -296,8 +282,6 @@ export default {
           result = await callGemini(systemInstruction, safeHistory, safeMessage, env);
           providerUsed = "gemini-fallback";
         } catch (geminiErr) {
-          // Both providers failed — this is the only case that surfaces
-          // an actual error to the widget.
           return new Response(
             JSON.stringify({
               error: "Both providers failed",
