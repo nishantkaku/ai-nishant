@@ -1,17 +1,21 @@
 /**
- * AI Nishant — Cloudflare Worker
+ * AI Nishant -- Cloudflare Worker
  * ------------------------------------------------------------
  * Sits between the Framer chat widget and the LLM provider
- * (Gemini by default, Groq available for A/B testing via
- * ?provider=groq on the request URL).
+ * (Groq primary, Gemini automatic fallback on any Groq failure).
  *
  * Responsibilities:
- *  1. Fetch nishant_knowledge.md from a public GitHub raw URL,
- *     cached for CACHE_TTL_SECONDS so edits to the file go live
- *     without redeploying this Worker.
- *  2. Build the request to the chosen provider: system prompt +
+ *  1. Check the visitor's message against a small set of static
+ *     answers first (contact, resume, certifications, education,
+ *     current role, companies) -- these are answered instantly with
+ *     zero AI calls and zero token cost, and work even if both
+ *     Groq and Gemini are down.
+ *  2. If no static match, fetch nishant_knowledge.md from a public
+ *     GitHub raw URL, cached for CACHE_TTL_SECONDS so edits to the
+ *     file go live without redeploying this Worker.
+ *  3. Build the request to the chosen provider: system prompt +
  *     knowledge + conversation history + the visitor's new message.
- *  3. Return a plain JSON reply the Framer widget can render.
+ *  4. Return a plain JSON reply the Framer widget can render.
  *
  * Required setup (see README.md):
  *  - wrangler.toml with a KV namespace binding: KNOWLEDGE_CACHE
@@ -20,44 +24,185 @@
  *  - Variable: KNOWLEDGE_URL (raw GitHub URL to nishant_knowledge.md)
  *  - Variable: ALLOWED_ORIGIN (your Framer site origin, for CORS)
  *
- * Testing Groq vs Gemini: append ?provider=groq to the Worker URL.
- * No query param (or anything else) falls back to Gemini.
+ * Testing Groq vs Gemini: append ?provider=gemini to the Worker URL
+ * to force Gemini directly (bypassing Groq and the static layer).
  */
 
-const CACHE_TTL_SECONDS = 3600; // 1 hour — tune as you like
+const CACHE_TTL_SECONDS = 3600; // 1 hour -- tune as you like
 
-const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-2.0-flash-001";
 const GEMINI_URL = (model, key) =>
   `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
 
 const GROQ_MODEL = "llama-3.3-70b-versatile";
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
+// ------------------------------------------------------------
+// Static answers -- no AI call, no tokens spent, always available.
+// Links use the same [text](url) Markdown syntax the frontend
+// already parses into clickable chips, so no frontend change is
+// needed to support this.
+// ------------------------------------------------------------
+
+const RESUME_URL =
+  "https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/Resume.pdf";
+const LINKEDIN_URL = "https://www.linkedin.com/in/nishantkaku";
+const INSTAGRAM_URL = "https://www.instagram.com/nishantkaku";
+const BEHANCE_URL = "https://www.behance.net/nishantkaku";
+const X_URL = "https://x.com/nishantkaku";
+
+const STATIC_ANSWERS = {
+  contact: {
+    reply:
+      `You can reach Nishant through his email at nishant.kaku@gmail.com, ` +
+      `or connect with him via [LinkedIn](${LINKEDIN_URL}), ` +
+      `[Instagram](${INSTAGRAM_URL}), [Behance](${BEHANCE_URL}), or ` +
+      `[X](${X_URL}). His resume is also available at [Resume](${RESUME_URL}).`,
+    followups: [
+      "What is his design philosophy?",
+      "What companies has he worked with?",
+      "Can I see his resume?",
+    ],
+  },
+  resume: {
+    reply: `Here's Nishant's resume: [Resume](${RESUME_URL})`,
+    followups: ["How do I reach him?", "What is his design philosophy?"],
+  },
+  certifications: {
+    reply:
+      "Nishant holds two HFI certifications: Certified Usability Analyst " +
+      "(CUA) and Certified User Experience Analyst (CXA).",
+    followups: ["Where did he study?", "What is his current role?"],
+  },
+  education: {
+    reply:
+      "Nishant holds an Executive MBA from the Indian School of Business " +
+      "(ISB), Hyderabad, and a Master of Fine Arts from Arunachal " +
+      "University of Studies, alongside his HFI certifications.",
+    followups: [
+      "What are his certifications?",
+      "What companies has he worked with?",
+    ],
+  },
+  role: {
+    reply:
+      "Nishant is currently Head of UX Design and Research at Housing.com " +
+      "(REA India), leading a team of designers across the company's core " +
+      "product experiences.",
+    followups: [
+      "What companies has he worked with?",
+      "What is his design philosophy?",
+    ],
+  },
+  companies: {
+    reply:
+      "Nishant has worked across Housing.com, Cashfree Payments, Jubilant " +
+      "FoodWorks (Domino's, Dunkin', Popeyes), Info Edge (Shiksha), Paytm, " +
+      "India Today, and Brentwoods.",
+    followups: [
+      "What was his role at Housing.com?",
+      "What is his current role?",
+    ],
+  },
+};
+
+// Checked in this order -- first match wins. Keep phrasing checks
+// broad but specific enough to avoid false positives (e.g. "study"
+// alone could be too broad; "study" plus context words is safer if
+// this ever needs tightening).
+function findStaticAnswer(message) {
+  const q = message.toLowerCase();
+
+  if (q.includes("resume") || q.includes(" cv") || q.includes("cv?")) {
+    return STATIC_ANSWERS.resume;
+  }
+
+  if (
+    q.includes("contact") ||
+    q.includes("reach him") ||
+    q.includes("reach nishant") ||
+    q.includes("get in touch") ||
+    q.includes("email") ||
+    q.includes("linkedin") ||
+    q.includes("instagram") ||
+    q.includes("behance") ||
+    q.includes("social media") ||
+    q.includes("his social")
+  ) {
+    return STATIC_ANSWERS.contact;
+  }
+
+  if (
+    q.includes("certification") ||
+    q.includes(" cua") ||
+    q.includes(" cxa") ||
+    q.includes("certified")
+  ) {
+    return STATIC_ANSWERS.certifications;
+  }
+
+  if (
+    q.includes("where did he study") ||
+    q.includes("his education") ||
+    q.includes("mba") ||
+    q.includes("degree") ||
+    q.includes("university") ||
+    q.includes("mfa")
+  ) {
+    return STATIC_ANSWERS.education;
+  }
+
+  if (
+    q.includes("current role") ||
+    q.includes("his role") ||
+    q.includes("what does he do") ||
+    q.includes("job title") ||
+    q.includes("designation") ||
+    q.includes("where does he work")
+  ) {
+    return STATIC_ANSWERS.role;
+  }
+
+  if (
+    q.includes("companies has he") ||
+    q.includes("companies he") ||
+    q.includes("worked with") ||
+    q.includes("career history") ||
+    q.includes("where has he worked") ||
+    q.includes("previous companies") ||
+    q.includes("past companies")
+  ) {
+    return STATIC_ANSWERS.companies;
+  }
+
+  return null;
+}
+
 const SYSTEM_PROMPT_HEADER = `
 You answer questions on Nishant Kaku's personal portfolio site. Follow the
-persona and rules defined in the document below exactly — it defines who
+persona and rules defined in the document below exactly -- it defines who
 you are, how to speak, and what to do when you don't know something.
 Answer only using the document's content, never invent facts.
 
 Respond in plain conversational sentences. Do not use markdown formatting
-of any kind — no asterisks, no bold/italic syntax, no headers, no bullet
+of any kind -- no asterisks, no bold/italic syntax, no headers, no bullet
 lists. Write the way a person would type in a chat message.
 
 The one exception: when your answer includes a link the document provides
 (such as his resume, LinkedIn, Instagram, Behance, or X), always include
 it using Markdown link syntax [text](url) exactly as given in the
-document — never paraphrase it as "visit the contact link on the site"
+document -- never paraphrase it as "visit the contact link on the site"
 or similar. State the link directly, every time it's relevant.
 
 If the document doesn't cover what's being asked, say so plainly and
 honestly (e.g. "That's not something documented about Nishant's work")
 rather than guessing, inferring, or denying something you're unsure about.
 Never state a negative ("he hasn't done X") unless the document explicitly
-says so — an absence of information is not the same as a "no".
+says so -- an absence of information is not the same as a "no".
 
 When mentioning years of experience, metrics, percentages, or currency
 figures, always use a consistent format: a number followed directly by
-"+" or "%" where applicable (e.g. "20+ years", "46%+", "₹20 crore"),
+"+" or "%" where applicable (e.g. "20+ years", "46%+", "Rs. 20 crore"),
 never spelled out or rephrased. Always refer to companies by their full
 stated name (e.g. "Housing.com", "Jubilant FoodWorks," not "Jubilant"
 alone).
@@ -67,7 +212,7 @@ You must respond with a JSON object with exactly two fields:
 - "followups": an array of 2 to 3 short follow-up questions (each under 8
   words) that a visitor could naturally ask next, based on what you just
   said. Make them specific to this answer, not generic. Always include at
-  least 2, even after answering something like a contact request — pivot
+  least 2, even after answering something like a contact request -- pivot
   to a different topic entirely (his projects, his philosophy, his
   background) rather than leaving the conversation with nowhere to go.
   Only use an empty array if you've truly covered everything in the
@@ -250,6 +395,17 @@ export default {
 
     const safeMessage = message.slice(0, 2000);
     const safeHistory = Array.isArray(history) ? history.slice(-10) : [];
+
+    // Static-answer check happens first -- before any knowledge fetch or
+    // provider call. Zero tokens spent, works even if both Groq and
+    // Gemini are down.
+    const staticAnswer = findStaticAnswer(safeMessage);
+    if (staticAnswer) {
+      return new Response(
+        JSON.stringify({ ...staticAnswer, provider: "static" }),
+        { headers: { ...headers, "Content-Type": "application/json" } }
+      );
+    }
 
     let knowledge;
     try {
