@@ -9,3 +9,7 @@ kv_namespaces = [
 [vars]
 KNOWLEDGE_URL = "https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/nishant_knowledge.md"
 ALLOWED_ORIGIN = "https://nishantkaku.com"
+GROQ_MODEL_PRIMARY = "openai/gpt-oss-20b"
+GROQ_MODEL_BACKUP = "openai/gpt-oss-120b"
+GEMINI_MODEL_PRIMARY = "gemini-3.6-flash"
+GEMINI_MODEL_BACKUP = "gemini-3.5-flash-lite"
