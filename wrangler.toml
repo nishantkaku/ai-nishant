@@ -6,10 +6,15 @@ kv_namespaces = [
   { binding = "KNOWLEDGE_CACHE", id = "83cd6d59e90f4cc49b36c3b7d3d97266" }
 ]
 
+[ai]
+binding = "AI"
+
 [vars]
 KNOWLEDGE_URL = "https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/nishant_knowledge.md"
 ALLOWED_ORIGIN = "https://nishantkaku.com"
 GROQ_MODEL_PRIMARY = "openai/gpt-oss-20b"
 GROQ_MODEL_BACKUP = "openai/gpt-oss-120b"
+CF_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast"
+ENABLE_CF_AI_FALLBACK = "true"
 GEMINI_MODEL_PRIMARY = "gemini-3.6-flash"
 GEMINI_MODEL_BACKUP = "gemini-3.5-flash-lite"
