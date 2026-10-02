@@ -10,7 +10,7 @@ kv_namespaces = [
 binding = "AI"
 
 [vars]
-KNOWLEDGE_URL = "https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/nishant_knowledge.md"
+KNOWLEDGE_BASE_URL = "https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/knowledge/"
 ALLOWED_ORIGIN = "https://nishantkaku.com"
 GROQ_MODEL_PRIMARY = "openai/gpt-oss-20b"
 GROQ_MODEL_BACKUP = "openai/gpt-oss-120b"

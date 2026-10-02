@@ -3,6 +3,9 @@ const HISTORY_TURN_LIMIT = 4;
 const MAX_MESSAGE_CHARS = 2000;
 const MAX_HISTORY_CHARS = 1000;
 const PROVIDER_TIMEOUT_MS = 9000;
+const MAX_REPLY_TOKENS = 900;
+const MAX_TOPIC_FILES = 3;
+const INDEX_FILE = "index.md";
 
 const GEMINI_URL = (model, key) =>
   `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
@@ -181,26 +184,86 @@ function findStaticAnswer(message) {
   return null;
 }
 
-async function getKnowledge(env) {
-  const cached = await env.KNOWLEDGE_CACHE.get("nishant_knowledge");
+async function getKnowledgeFile(env, file) {
+  const cacheKey = `kb:${file}`;
+  const cached = await env.KNOWLEDGE_CACHE.get(cacheKey);
   if (cached) return cached;
 
-  const res = await fetch(env.KNOWLEDGE_URL, {
+  const res = await fetch(env.KNOWLEDGE_BASE_URL + file, {
     headers: { "User-Agent": "ai-nishant-worker" },
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch knowledge file: ${res.status}`);
+    throw new Error(`Failed to fetch knowledge file ${file}: ${res.status}`);
   }
 
-  const text = await res.text();
-  const trimmed = text.split("## Maintenance Notes")[0].trim();
+  const text = (await res.text()).trim();
 
-  await env.KNOWLEDGE_CACHE.put("nishant_knowledge", trimmed, {
+  await env.KNOWLEDGE_CACHE.put(cacheKey, text, {
     expirationTtl: CACHE_TTL_SECONDS,
   });
 
-  return trimmed;
+  return text;
+}
+
+// index.md holds the always-loaded core plus a "# Topic Map" listing the
+// topic files: `- file.md | description | keywords: a, b, c`.
+function parseIndex(indexText) {
+  const [core, rest = ""] = indexText.split("# Topic Map");
+  const map = rest.split("## Maintenance Notes")[0];
+  const topics = [];
+  let defaultFile = null;
+
+  for (const line of map.split("\n")) {
+    const topic = line.match(/^- (\S+\.md) \| .*? \| keywords: (.+)$/);
+    if (topic) {
+      topics.push({
+        file: topic[1],
+        keywords: topic[2].split(",").map((k) => k.trim().toLowerCase()).filter(Boolean),
+      });
+      continue;
+    }
+    const fallback = line.match(/^default: (\S+\.md)$/);
+    if (fallback) defaultFile = fallback[1];
+  }
+
+  return { core: core.replace(/\s*---\s*$/, "").trim(), topics, defaultFile };
+}
+
+function scoreTopics(topics, text) {
+  const q = ` ${text.toLowerCase()} `;
+  return topics
+    .map((topic, order) => ({
+      file: topic.file,
+      order,
+      score: topic.keywords.filter((k) => q.includes(k)).length,
+    }))
+    .filter((t) => t.score > 0)
+    .sort((a, b) => b.score - a.score || a.order - b.order)
+    .slice(0, MAX_TOPIC_FILES)
+    .map((t) => t.file);
+}
+
+function pickTopicFiles(index, message, history) {
+  let files = scoreTopics(index.topics, message);
+
+  // Follow-ups like "tell me more" carry no keywords; route on recent turns.
+  if (!files.length && history.length) {
+    files = scoreTopics(index.topics, history.slice(-2).map((t) => t.text).join(" "));
+  }
+  if (!files.length && index.defaultFile) files = [index.defaultFile];
+
+  return files;
+}
+
+async function getKnowledge(env, message, history) {
+  const index = parseIndex(await getKnowledgeFile(env, INDEX_FILE));
+  const files = pickTopicFiles(index, message, history);
+  const sections = await Promise.all(
+    files.map((file) => getKnowledgeFile(env, file).catch(() => ""))
+  );
+
+  return { text: [index.core, ...sections.filter(Boolean)].join("\n\n---\n\n"), files };
 }
 
 function corsHeaders(env) {
@@ -308,8 +371,15 @@ function parseReplyJson(rawValue) {
 function classifyFailure(status, body = "") {
   const text = body.toLowerCase();
 
+  if (text.includes("json_validate_failed")) return "malformed_json";
   if (status === 408 || status === 504 || text.includes("timeout")) return "timeout";
-  if (status === 429 || text.includes("rate") || text.includes("quota") || text.includes("resource_exhausted")) {
+  if (
+    status === 429 ||
+    status === 413 ||
+    /rate.?limit/.test(text) ||
+    text.includes("quota") ||
+    text.includes("resource_exhausted")
+  ) {
     return "rate_limited";
   }
   if (status === 401 || status === 403) return "auth_or_permission";
@@ -341,6 +411,7 @@ function logAttempt(event) {
       retryAfter: event.retryAfter || null,
       remainingTokens: event.remainingTokens || null,
       cachedTokens: event.cachedTokens ?? null,
+      errorBody: event.errorBody || null,
     })
   );
 }
@@ -360,7 +431,8 @@ async function callGroq(model, messages, env) {
         model,
         messages,
         temperature: 0.65,
-        max_tokens: 400,
+        max_completion_tokens: MAX_REPLY_TOKENS,
+        reasoning_effort: "low",
         response_format: {
           type: "json_schema",
           json_schema: {
@@ -386,6 +458,7 @@ async function callGroq(model, messages, env) {
         latencyMs,
         retryAfter: response.headers.get("retry-after"),
         remainingTokens: response.headers.get("x-ratelimit-remaining-tokens"),
+        errorBody: body.slice(0, 500),
       };
     }
 
@@ -668,7 +741,7 @@ export default {
 
     let knowledge;
     try {
-      knowledge = await getKnowledge(env);
+      knowledge = await getKnowledge(env, safeMessage, safeHistory);
     } catch (error) {
       return jsonResponse(
         {
@@ -680,7 +753,9 @@ export default {
       );
     }
 
-    const systemInstruction = SYSTEM_PROMPT_HEADER + knowledge + SYSTEM_PROMPT_FOOTER;
+    console.log(JSON.stringify({ event: "knowledge_selected", files: knowledge.files }));
+
+    const systemInstruction = SYSTEM_PROMPT_HEADER + knowledge.text + SYSTEM_PROMPT_FOOTER;
     const url = new URL(request.url);
     const forceProvider = url.searchParams.get("provider");
     const result = await answerWithAi(systemInstruction, safeHistory, safeMessage, env, forceProvider);

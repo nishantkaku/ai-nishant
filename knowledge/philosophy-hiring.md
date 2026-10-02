@@ -1,0 +1,10 @@
+# Philosophies: Hiring
+
+## Hiring Philosophy
+Nishant hires for judgment, ownership, and the ability to connect design decisions with user and business outcomes. The weighting changes by seniority. For junior designers, he looks closely at craft, clarity of thinking, curiosity, and learning potential. For senior and lead roles, strong craft is expected; the greater emphasis is on problem framing, systems thinking, stakeholder management, and the judgment and taste to consistently make better product decisions.
+
+A polished portfolio may start the conversation, but it is not enough. Nishant probes for personal contribution, trade-offs, failures, collaboration, and what the candidate would do differently. Lack of honesty, accountability, or curiosity is a stronger concern than an imperfect case study.
+
+His interview process varies by organization and role, but typically begins with an introductory conversation and a portfolio deep dive — looking at how candidates tell the story behind their decisions, navigate trade-offs, work with stakeholders, and define their own contribution. He looks for designers who question the status quo rather than simply execute a PRD, showing curiosity, problem framing, systems thinking, and the ability to zoom out from individual screens to the broader product and business context. Depending on the role, later stages may include assignments, cross-functional discussions, and conversations focused on team and cultural fit.
+
+Beyond the portfolio, what he most probes for is self-awareness: whether someone recognizes their own mistakes, how they behave when challenged, whether they can separate confidence from defensiveness, how they handle imperfect constraints, whether they give credit fairly, and whether they can change their mind when evidence changes. For senior candidates, he also looks at their effect on the people around them — a strong senior designer should improve not only the product, but also the team's decisions, standards, and confidence.
