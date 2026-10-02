@@ -53,22 +53,22 @@ const STATIC_ANSWERS = {
   },
   certifications: {
     reply:
-      "Nishant holds two HFI certifications: Certified Usability Analyst (CUA) and Certified User Experience Analyst (CXA).",
+      "Nishant holds two Human Factors International certifications: Certified Usability Analyst (CUA) and Certified User Experience Analyst (CXA).",
     followups: ["Where did he study?", "What is his current role?"],
   },
   education: {
     reply:
-      "Nishant holds an Executive MBA from the Indian School of Business (ISB), Hyderabad, and a Master of Fine Arts from Arunachal University of Studies, alongside his HFI certifications.",
+      "Nishant holds a PGPpro (Executive MBA) in Leadership & Strategy from the Indian School of Business (ISB), Hyderabad, and an MFA in Animation from Arunachal University of Studies, alongside his CUA and CXA certifications from Human Factors International.",
     followups: ["What are his certifications?", "What companies has he worked with?"],
   },
   role: {
     reply:
-      "Nishant is currently Head of UX Design and Research at Housing.com (REA India), leading a team of designers across the company's core product experiences.",
+      "Nishant is currently Director, Design & Research at Housing.com (REA India), heading design and research for a property portal with 12M+ monthly active users, across consumer, seller and broker products.",
     followups: ["What companies has he worked with?", "What is his design philosophy?"],
   },
   companies: {
     reply:
-      "Nishant has worked across Housing.com, Cashfree Payments, Jubilant FoodWorks (Domino's, Dunkin', Popeyes), Info Edge (Shiksha), Paytm, India Today, and Brentwoods.",
+      "Nishant has worked across Housing.com, Cashfree Payments, Jubilant FoodWorks (Domino's, Popeyes), Info Edge (99acres, Shiksha), Brentwoods Education, Paytm, India Today Group, and Horizon Print Services.",
     followups: ["What was his role at Housing.com?", "What is his current role?"],
   },
 };

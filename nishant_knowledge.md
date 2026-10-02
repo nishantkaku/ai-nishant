@@ -18,7 +18,9 @@ Keep answers concise by default. Lead with the clearest answer, then add only th
 ---
 
 # Profile Overview
-Nishant has 20+ years of overall experience, including 13+ years specifically in UX and 15+ years in people and team leadership, embedding UX into product strategy across fintech, SaaS, and commerce.
+Nishant is a product design and research leader who builds design functions from the ground up. He is Director, Design & Research at Housing.com (REA India), a property portal with 12M+ monthly active users, and previously worked at Cashfree Payments, Jubilant FoodWorks (Domino's, Popeyes) and Info Edge (99acres, Shiksha). He has 20+ years in design, 13+ years in product and UX, and 15+ years leading design teams, across consumer, fintech and marketplace products. He is based in Gurugram and open to relocation.
+
+Headline outcomes: built the Domino's design team from 1 to 15; led design of the Housing.com login rebuild that added 40K leads a month; cut merchant support tickets 46% at Cashfree.
 
 ---
 
@@ -87,14 +89,14 @@ Nishant believes taste is the ability to consistently recognize what creates the
 ## Housing.com
 
 ### Role & Scope
-Nishant leads Design and Research across Housing.com's core product experiences. His role extends beyond leading a design team to building the systems, culture, and operating model that improve design quality at scale. Since many of these capabilities did not previously exist, his focus has been on establishing the research function, evolving the design system and governance, embedding designers within product squads, and strengthening design's influence across Product and Engineering.
+Nishant is Director, Design & Research at Housing.com (REA India), Gurugram, from Dec 2025 to present. He heads design and research for a property portal with 12M+ monthly active users, across consumer, seller and broker products, with a 7-member team embedded in product squads, reporting to the CPO. His role extends beyond leading a design team to building the systems, culture, and operating model that improve design quality at scale. Since many of these capabilities did not previously exist, his focus has been on establishing the research function, evolving the design system and governance, embedding designers within product squads, and strengthening design's influence across Product and Engineering.
 
 Beyond process, he has worked to build a stronger design culture by establishing a clear design voice, fostering ownership and accountability, encouraging teams to challenge the status quo, and demonstrating the value design brings to business decisions. He also introduced regular design critiques, experience audits, UX/UI issue tracking, and in-house research capability so designers could generate customer insight rather than depend solely on dedicated researchers.
 
 ### Design Maturity
 Unlike previous roles that focused on scaling products or optimizing established design teams, Housing.com has been about building design maturity. The challenge wasn't simply improving customer journeys — it was creating the foundations that allow design to consistently influence business decisions. That meant introducing research as a core capability, improving governance, building shared standards, and helping design become a stronger strategic partner across the organization. Housing.com has been less about scaling design output and more about scaling design maturity.
 
-The most significant change has been moving design from a delivery function toward a strategic capability — a structured research practice, stronger design governance, an evolved Imagine design system, regular critique and quality rituals, and closer partnerships with Product and Engineering.
+The most significant change has been moving design from a delivery function toward a strategic capability — a structured research practice, stronger design governance, the Bricks design system, regular critique and quality rituals, and closer partnerships with Product and Engineering.
 
 ### Building the Research Function
 When Nishant joined Housing.com, research was largely vendor-driven and requested late in the product lifecycle. One of his first changes was shifting conversations from "we need research" to "what problem are we trying to solve, and how will research reduce uncertainty?" This helped teams become more intentional about when and why research was needed.
@@ -102,6 +104,8 @@ When Nishant joined Housing.com, research was largely vendor-driven and requeste
 To make research repeatable, he introduced templates, playbooks, and a proposal-first approach. Every study begins with a research proposal and stakeholder alignment, ensuring objectives, methodology, and expected outcomes are agreed before any research starts.
 
 Beyond process, he focused on capability building. Designers were coached to run research independently by first observing and then leading proposal creation, participant screening, interview guides, usability studies, and synthesis. Larger strategic studies continue to leverage specialist research partners, while the long-term goal is to build a strong in-house research capability.
+
+He also introduced a competency framework and regular design critiques. Studies run by the team include a 140-renter survey and buyer research that helped reshape the new-projects roadmap.
 
 More recently, he has been exploring AI-driven workflows that automate repetitive tasks such as research requests, proposal creation, screener generation, and interview guide preparation, allowing teams to spend more time on customer understanding and synthesis.
 
@@ -115,7 +119,7 @@ Research on the New Projects Property Detail Page (NP-PDP) uncovered recurring c
 ### Design Governance
 Nishant believes quality should be built into the way teams operate rather than relying on final reviews. At Housing.com, he focused on creating governance mechanisms that made good design repeatable across teams.
 
-This included evolving the Imagine design system beyond a component library into a shared set of standards covering visual language, interaction patterns, and implementation guidance. Designers were embedded within product squads while following common principles that ensured experiences remained consistent regardless of which team built them.
+This included establishing the Bricks design system (tokens, core components, governance) as a shared set of standards covering visual language, interaction patterns, and implementation guidance, which cut component delivery from 2 weeks to 2 days. Designers were embedded within product squads while following common principles that ensured experiences remained consistent regardless of which team built them.
 
 Governance extended beyond the design system. Nishant introduced regular design critiques, design QA, experience audits, and UX/UI issue tracking to continuously identify quality gaps across the product. Rather than treating these as isolated issues, recurring patterns became inputs into product roadmaps and design improvements.
 
@@ -124,7 +128,7 @@ He also established clearer ownership around design assets, standardized ways of
 Reusable ideas: a design system is a governance mechanism, not just a component library. Quality should be built into the operating model, not inspected at the end. Governance should increase consistency without reducing team autonomy.
 
 ### Key Initiatives
-Housing.com has been less about delivering individual features and more about building long-term design capability. Nishant's work has focused on establishing the research function, evolving the Imagine design system and governance model, introducing design quality mechanisms such as critiques, audits, and UX/UI issue tracking, and embedding designers more deeply into product decision-making.
+Housing.com has been less about delivering individual features and more about building long-term design capability. Nishant's work has focused on establishing the research function, establishing the Bricks design system and governance model, introducing design quality mechanisms such as critiques, audits, and UX/UI issue tracking, and embedding designers more deeply into product decision-making.
 
 Alongside these structural changes, he has led initiatives across core consumer experiences, including property discovery, new project journeys, trust and credibility research, DIY experiences, and customer research programs.
 
@@ -133,12 +137,15 @@ Housing.com reinforced for Nishant that scaling a design team is very different 
 
 One of the biggest lessons has been that research, design systems, governance, and quality standards only create impact when they become part of everyday decision-making rather than isolated initiatives. Sustainable design maturity comes from building capabilities that continue to improve the organization long after individual projects are complete.
 
-Capability mapping: Research Function → Research capability. Imagine → Design capability. Governance → Quality capability. UX/UI Issues → Continuous improvement capability. AI workflows → Automation capability. Coaching → Team capability.
+Capability mapping: Research Function → Research capability. Bricks → Design capability. Governance → Quality capability. UX/UI Issues → Continuous improvement capability. AI workflows → Automation capability. Coaching → Team capability.
 
 ### Business Impact
 As design shifted from a service function to a strategic product partner — with designers influencing problem definition, PRDs, roadmap discussions, and success metrics rather than just executing them — that ownership uplift showed up directly in business outcomes across consumer and broker funnels.
 
-The Progressive CRF initiative drove a 4%+ lift in paid leads per session, with a 5%+ improvement in resale leads per session. Dynamic Search Expansion delivered a 5%+ lift in resale paid leads and 3%+ in overall paid leads. A login growth initiative added 40K+ leads per month through a 10%+ relative improvement in login rate. Improving EMI and payment plan visibility roughly doubled coverage and added 5K+ additional leads per month on new-project listings. Streamlining the search funnel added 10K+ additional monthly leads.
+Nishant led design of the login rebuild with Product and Engineering, which added 40K leads a month and raised login rate 10%. He led design of the search and filter rebuild, which raised search-results reach 11% and filter usage 30%, and added 10K leads a month. The Progressive CRF initiative drove a 4%+ lift in paid leads per session, with a 5%+ improvement in resale leads per session. Dynamic Search Expansion delivered a 5%+ lift in resale paid leads and 3%+ in overall paid leads. Improving EMI and payment plan visibility roughly doubled coverage and added 5K+ additional leads per month on new-project listings.
+
+### Houzy
+Nishant took Houzy, a conversational AI property-search experience, from concept to beta, defining its persona, failure handling and adaptive results UI.
 
 These outcomes came from design-first initiatives — Search v3, NP SRP Hotspot, Houzy, NP-PDP, Filters Revamp, and Owner Monetisation — built in close partnership with Product, Engineering, Business, and Leadership, where user needs, validation, and experimentation directly shaped roadmap decisions rather than being consulted on after the fact.
 
@@ -150,13 +157,16 @@ The Mumbai pilot showed encouraging early signals: 10%+ YoY collections growth, 
 ## Cashfree
 
 ### Role & Scope
-As Associate Director – UX, Nishant led a team of four designers while remaining hands-on across UX strategy, research, and execution. His work spanned merchant onboarding, payment gateway integration, merchant communications, service blueprints, dashboards, and the Payment Gateway mobile app. The role required close collaboration with Product, Engineering, Legal, Operations, Sales, Banking Alliances, Customer Success, and Relationship Managers to align customer experience with business and regulatory requirements.
+As Associate Director, UX at Cashfree Payments, Bengaluru (Aug 2022 to Nov 2025), Nishant led UX strategy and a team of 8 through Cashfree's shift from enterprise-led sales to a self-serve SMB platform, while remaining hands-on across UX strategy, research, and execution. His work spanned merchant onboarding, KYC, payment gateway integration, merchant communications, service blueprints, dashboards, and the Payment Gateway mobile app. The role required close collaboration with Product, Engineering, Legal, Operations, Sales, Banking Alliances, Customer Success, and Relationship Managers to align customer experience with business and regulatory requirements.
 
 ### Enabling Self-Serve Growth
-One of Nishant's biggest contributions was defining the UX strategy that supported Cashfree's transition from an enterprise-led business to a scalable self-serve platform for SMEs. Enterprise merchants relied heavily on Relationship Managers for onboarding and integration, while SMEs needed intuitive experiences that worked independently. He redesigned the end-to-end onboarding journey — from signup and KYC to payment gateway integration and first transaction — balancing usability with compliance and operational requirements. This contributed to a 17% improvement in signup-to-KYC conversion, a 3.5% increase in merchant activation, and a 46% reduction in support tickets.
+One of Nishant's biggest contributions was defining the UX strategy that supported Cashfree's transition from an enterprise-led business to a scalable self-serve platform for SMBs. Enterprise merchants relied heavily on Relationship Managers for onboarding and integration, while SMBs needed intuitive experiences that worked independently. He redesigned the end-to-end onboarding journey — from signup and KYC to payment gateway integration and first transaction — balancing usability with compliance and operational requirements. Simplifying the 8-step onboarding flow lifted signup-to-KYC conversion 17% and cut completion time from 21 to 13 minutes. The redesigned self-integration journey raised activation-to-transaction conversion 3.5%, with 87% completion. Rebuilding the post-onboarding merchant experience cut support tickets 46%, grew active users 32% and reduced uninstalls 18%.
+
+### Defining the SMB Merchant
+Nishant built four SMB merchant personas from a cross-functional workshop and journey maps, which defined the SMB charter and aligned the functions around it. He also mapped the merchant journey in service blueprints with Legal, Operations, Sales, Banking Alliances and Customer Success.
 
 ### Fintech UX
-Cashfree reinforced that fintech design is fundamentally different from consumer products. Success depended on building trust, reducing complexity, and guiding merchants through compliance-driven workflows rather than creating emotionally engaging interfaces. As the business evolved from enterprise to SME customers, the design strategy evolved alongside it, ensuring experiences reflected changing customer needs and operating models.
+Cashfree reinforced that fintech design is fundamentally different from consumer products. Success depended on building trust, reducing complexity, and guiding merchants through compliance-driven workflows rather than creating emotionally engaging interfaces. As the business evolved from enterprise to SMB customers, the design strategy evolved alongside it, ensuring experiences reflected changing customer needs and operating models.
 
 ### Key Initiatives
 Beyond merchant onboarding, Nishant led UX strategy across payment gateway integration experiences, merchant communications, service blueprints mapping merchant and Relationship Manager journeys, dashboard modernization, and the Payment Gateway mobile app. Together, these initiatives improved merchant adoption, operational efficiency, and product usability across multiple touchpoints.
@@ -167,10 +177,10 @@ Cashfree strengthened Nishant's belief that UX strategy should evolve with the b
 ## Jubilant FoodWorks — Domino's, Dunkin', Popeyes
 
 ### Role & Scope
-As Head of Design, Nishant built and led the UX function during a period of rapid digital transformation. He scaled the design team from one designer to fifteen, established the research practice, introduced the design system, and built the operating model needed to support multiple brands and digital products. Alongside leadership responsibilities, he remained actively involved in UX strategy, research, and major product initiatives.
+As Lead Manager, UX at Jubilant FoodWorks, Noida (Oct 2020 to Jul 2022), Nishant headed UX design and research for Domino's and Popeyes during a period of rapid digital transformation. He scaled the design team from 1 to 15, established the research practice, introduced the design system, and built the operating model needed to support multiple brands and digital products. Alongside leadership responsibilities, he remained actively involved in UX strategy, research, and major product initiatives.
 
 ### Transforming the Domino's Experience
-Nishant led Domino's India's first major UX transformation in over 15 years. Rather than optimizing individual screens, the initiative reimagined the end-to-end ordering journey around customer needs, introducing a more personalized, dynamic experience across discovery, ordering, payment, and post-order tracking. The redesign contributed to nearly ₹20 crore in incremental annual revenue, a 20.3% uplift in new-user conversion, a 46.5% improvement in store-pickup conversion, and the highest app ratings in the brand's history.
+Nishant led Domino's India's first major UX transformation in over 15 years. Rather than optimizing individual screens, the initiative reimagined the end-to-end ordering journey around customer needs, introducing a more personalized, dynamic experience across discovery, ordering, payment, and post-order tracking. The overhaul delivered ₹20 Cr in incremental annual revenue and ₹1 Cr in annual cost savings. The address and location revamp lifted new-user conversion 20% and store-pickup conversion 46%. The iOS app reached a lifetime-high 4.7 rating.
 
 ### Building Design from the Ground Up
 Unlike later roles focused on improving existing organizations, Jubilant was an opportunity to build the design function from scratch. Nishant established the design team's culture, research capability, design system, governance, and cross-functional partnerships as the organization scaled. Because these foundations were built early, design became an active contributor to business strategy rather than a downstream execution function.
@@ -178,10 +188,16 @@ Unlike later roles focused on improving existing organizations, Jubilant was an 
 Note: Dunkin' was part of Jubilant's brand portfolio during this period, but no distinct Dunkin'-specific initiative is documented — it was part of the broader multi-brand operating model he built, not a separate case study.
 
 ### Popeyes India
-Nishant also led the UX strategy for launching Popeyes in India after Jubilant acquired the master franchise rights. The experience was designed specifically for Indian consumers while maintaining global brand standards. User journeys, ordering flows, and interactions were localized to fit Indian behaviors and expectations. The work was highly appreciated by the global Popeyes team and influenced discussions around future international digital experiences.
+Nishant also led the UX strategy for launching Popeyes India's online ordering from zero after Jubilant acquired the master franchise rights. The experience was designed specifically for Indian consumers while maintaining global brand standards. User journeys, ordering flows, and interactions were localized to fit Indian behaviors and expectations. The work was highly appreciated by the global Popeyes team and influenced discussions around future international digital experiences.
 
 ### Leadership Lessons
 Jubilant taught Nishant that lasting product transformation requires both strong experiences and strong organizations. Building a high-performing design team, establishing shared standards, and earning executive trust created the foundation that enabled ambitious product changes at scale. It reinforced his belief that design maturity and business impact grow together.
+
+## Info Edge (99acres, Shiksha)
+As Principal Designer, UX at Info Edge, Noida (Apr 2014 to Sep 2020), Nishant was design lead across Shiksha (ed-tech) and 99acres (property listings). He grew registrations 150% year on year through a personalisation programme, and led the revamp of internal CRM, CMS and LMS tools used by sales and content teams.
+
+## Earlier Career (2005 to 2014)
+Creative Lead at Brentwoods Education and Assistant Manager, Graphics at Paytm (2013 to 2014). Deputy Art Director at India Today Group, leading creative teams from 2010 (2008 to 2013). Graphic Designer at Horizon Print Services (2005 to 2008).
 
 ## Career Journey
 Nishant's career isn't best understood as a sequence of roles — it's an expanding sphere of influence. He never stopped being a designer; he kept adding layers on top of craft rather than replacing it.
@@ -192,7 +208,7 @@ Nishant's career isn't best understood as a sequence of roles — it's an expand
 
 **Experience Strategy → Design Leadership**: He realized improving one product wasn't enough — he wanted to improve how teams consistently built products.
 
-**Design Leadership → Organizational Capability**: The biggest shift, at Housing.com. The question moved from "how do we design better?" to "how do we build an organization that consistently designs better?" — research, governance, culture, the Imagine design system, QA, ownership.
+**Design Leadership → Organizational Capability**: The biggest shift, at Housing.com. The question moved from "how do we design better?" to "how do we build an organization that consistently designs better?" — research, governance, culture, the Bricks design system, QA, ownership.
 
 **Organizational Capability → AI-enabled Design Leadership**: Happening now. The question has shifted from "how do designers work?" to "how should design organizations work in an AI-first world?" His research pipelines, AI Nishant, n8n workflows, and knowledge systems aren't side projects — they're an extension of the same leadership philosophy applied to a new context.
 
@@ -201,7 +217,7 @@ Ranked by the kind of problem solved, not by company.
 
 **Building Design Organizations** — his signature achievement, not for a single biggest metric but because it's happened repeatedly: building the design function at Domino's from scratch, elevating design maturity at Housing.com, and building research capability, governance, teams, and culture across multiple companies.
 
-**Transforming Business Through UX** — the same underlying pattern across two very different industries: nearly ₹20 crore in incremental revenue at Domino's, an SME self-serve strategy at Cashfree, a 46%+ reduction in support tickets, and measurable conversion improvements across both.
+**Transforming Business Through UX** — the same underlying pattern across two very different industries: ₹20 Cr in incremental annual revenue at Domino's, an SMB self-serve strategy at Cashfree, a 46% reduction in support tickets, and measurable conversion improvements across both.
 
 **Making Research Operational** — Housing.com is likely the first role where research was treated as an operating capability, not an occasional activity.
 
@@ -255,20 +271,36 @@ Nishant enjoys speaking because it creates opportunities to challenge convention
 
 # Education & Certifications
 
-## Executive MBA
-Indian School of Business (ISB), Hyderabad
+## PGPpro (Executive MBA), Leadership & Strategy
+Indian School of Business (ISB), Hyderabad, 2021 to 2022
 
-## Master of Fine Arts
-Arunachal University of Studies
+## MFA, Animation
+Arunachal University of Studies, 2011 to 2013
 
 ## Certified Usability Analyst (CUA)
+Human Factors International, Licence 2015-5831
 
 ## Certified User Experience Analyst (CXA)
+Human Factors International, Licence 2018-520
+
+---
+
+# Skills
+Leadership: design strategy, team building and coaching, org design, design operations, executive stakeholder management.
+
+Craft and tools: design systems, user research, conversational UX, prototyping, AI-assisted design and research workflows, Figma, Framer, n8n.
+
+AI: conversational search design (Houzy), an AI portfolio assistant built on Cloudflare Workers and LLM APIs, agentic research workflows in n8n.
+
+---
+
+# Speaking and Writing
+Talks and panels at Shiv Nadar University, Bennett University and Chitkara University. Articles on design leadership at https://nishantkaku.com/writing
 
 ---
 
 # Career Timeline
-Housing.com, Cashfree, Jubilant FoodWorks, Info Edge, Brentwoods, Paytm, India Today, Horizon (Horizon Print Services — an early-career company, unrelated to the Horizon credits-based pilot project at Housing.com described above).
+Housing.com (Dec 2025 to present), Cashfree Payments (Aug 2022 to Nov 2025), Jubilant FoodWorks (Oct 2020 to Jul 2022), Info Edge (Apr 2014 to Sep 2020), Brentwoods Education and Paytm (2013 to 2014), India Today Group (2008 to 2013), Horizon Print Services (2005 to 2008) (Horizon Print Services — an early-career company, unrelated to the Horizon credits-based pilot project at Housing.com described above).
 
 ---
 
