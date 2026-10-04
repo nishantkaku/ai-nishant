@@ -48,7 +48,7 @@ Arunachal University of Studies, 2011 to 2013
 HFI Institute, Licence 2015-5831. Verify: https://hfiinstitute.com/verify/?credential=7d42d5d9-b7d9-44e5-9c91-d53abc1ecd29
 
 ## Certified Experience Architect (CXA™)
-HFI Institute, Licence 2018-520. Verify: https://hfiinstitute.com/verify/?credential=13d8f350-8dbb-4e9c-ab02-09d46013dd78
+HFI Institute, Licence 2018-520. Verify: https://hfiinstitute.com/verify/?credential=9642bfe5-7229-4b18-9127-fc44864457f9
 
 # Contact
 His most current resume is available at https://raw.githubusercontent.com/nishantkaku/ai-nishant/main/Resume.pdf
