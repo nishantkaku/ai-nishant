@@ -25,4 +25,4 @@ Craft and tools: design systems, user research, conversational UX, prototyping, 
 AI: conversational search design (Houzy), an AI portfolio assistant built on Cloudflare Workers and LLM APIs, agentic research workflows in n8n.
 
 ## Speaking and Writing
-Talks and panels at Shiv Nadar University, Bennett University and Chitkara University. Articles on design leadership at https://nishantkaku.com/writing
+Talks and panels at IIITDM Jabalpur, Shiv Nadar University, Bennett University and Chitkara University. Articles on design leadership at https://nishantkaku.com/writing

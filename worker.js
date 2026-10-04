@@ -51,17 +51,17 @@ const STATIC_ANSWERS = {
     ],
   },
   resume: {
-    reply: `Here's Nishant's resume: [Resume](${RESUME_URL})`,
+    reply: `Here's Nishant's resume: [Résumé page](https://nishantkaku.com/resume) or [PDF](${RESUME_URL})`,
     followups: ["How do I reach him?", "What is his design philosophy?"],
   },
   certifications: {
     reply:
-      "Nishant holds two Human Factors International certifications: Certified Usability Analyst (CUA) and Certified User Experience Analyst (CXA).",
+      "Nishant holds two HFI Institute certifications: Certified Experience Architect (CXA™) and Certified Usability Architect (CUA™). Both can be verified on his résumé page at https://nishantkaku.com/resume",
     followups: ["Where did he study?", "What is his current role?"],
   },
   education: {
     reply:
-      "Nishant holds a PGPpro (Executive MBA) in Leadership & Strategy from the Indian School of Business (ISB), Hyderabad, and an MFA in Animation from Arunachal University of Studies, alongside his CUA and CXA certifications from Human Factors International.",
+      "Nishant holds a PGPpro (Executive MBA) in Leadership & Strategy from the Indian School of Business (ISB), Hyderabad, and an MFA in Animation from Arunachal University of Studies, alongside his CXA and CUA certifications from HFI Institute.",
     followups: ["What are his certifications?", "What companies has he worked with?"],
   },
   role: {
